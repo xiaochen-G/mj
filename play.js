@@ -10,3 +10,10 @@
   }
   hgWireFav(document.getElementById('favBtn'));
 })();
+(function(){
+  var b=document.getElementById('backBtn');
+  if(!b)return;
+  b.addEventListener('click',function(){
+    if(history.length>1){history.back();}else{location.href='/';}
+  });
+})();
