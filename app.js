@@ -27,27 +27,7 @@ function hgWireFav(b){
     }
   });
 }
-// --- user session (pages stay anonymous/cacheable; identity comes from /api/me) ---
-var hgMe=null;
-var hgMeP=fetch('/api/me').then(function(r){return r.json();}).then(function(m){hgMe=m;hgPaintUser();hgMaybeMerge();return m;}).catch(function(){return {logged:false};});
-function hgPaintUser(){
-  var box=document.getElementById('userBox');
-  if(!box||!hgMe)return;
-  box.innerHTML='';
-  if(hgMe.logged){
-    var s=document.createElement('span');s.textContent='👤 '+hgMe.name;box.appendChild(s);
-    var a=document.createElement('a');a.href='/logout';a.textContent='退出';box.appendChild(a);
-  }else{
-    var l=document.createElement('a');l.href='/login';l.textContent='登录';box.appendChild(l);
-    var g=document.createElement('a');g.href='/register';g.textContent='注册';box.appendChild(g);
-  }
-}
-function hgMaybeMerge(){
-  if(!hgMe||!hgMe.logged)return;
-  var key='hg_merged_'+hgMe.name;
-  try{if(localStorage.getItem(key))return;}catch(e){return;}
-  var favs=hgFavs(),hist=hgLoad('hg_hist');
-  var done=function(){try{localStorage.setItem(key,'1');}catch(e){}};
-  if(!favs.length&&!hist.length){done();return;}
-  fetch('/api/merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({favs:favs,hist:hist})}).then(done).catch(function(){});
-}
+// --- user accounts are closed (Dario's order, 2026-11-14): no login/register.
+// Favorites and history live only in this browser's localStorage.
+var hgMe={logged:false};
+var hgMeP=Promise.resolve(hgMe);
