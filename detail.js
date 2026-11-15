@@ -28,3 +28,10 @@
     else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(location.href).then(done).catch(function(){});}
   });
 })();
+(function(){
+  var b=document.getElementById('backBtn');
+  if(!b)return;
+  b.addEventListener('click',function(){
+    if(history.length>1){history.back();}else{location.href='/';}
+  });
+})();
