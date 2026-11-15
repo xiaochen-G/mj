@@ -13,8 +13,10 @@
         p.appendChild(img);
         if(it.remarks){p.appendChild(el('div','badge',it.remarks));}
         card.appendChild(p);
-        card.appendChild(el('h3',null,it.name||''));
-        card.appendChild(el('div','sub','共 '+(it.eps||0)+' 集'));
+        var cb=el('div','cbody');
+        cb.appendChild(el('h3',null,it.name||''));
+        cb.appendChild(el('div','sub','共 '+(it.eps||0)+' 集'));
+        card.appendChild(cb);
         g.appendChild(card);
       });
       root.appendChild(g);

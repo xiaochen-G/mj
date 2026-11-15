@@ -19,3 +19,12 @@
     });
   }
 })();
+(function(){
+  var s=document.getElementById('shareBtn');
+  if(!s)return;
+  s.addEventListener('click',function(){
+    function done(){var t=s.textContent;s.textContent='已复制链接';setTimeout(function(){s.textContent=t;},1600);}
+    if(navigator.share){navigator.share({title:document.title,url:location.href}).catch(function(){});}
+    else if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(location.href).then(done).catch(function(){});}
+  });
+})();

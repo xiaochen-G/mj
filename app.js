@@ -31,3 +31,18 @@ function hgWireFav(b){
 // Favorites and history live only in this browser's localStorage.
 var hgMe={logged:false};
 var hgMeP=Promise.resolve(hgMe);
+// --- ddys-style chrome: dark-mode toggle + search overlay (2026-11-15) ---
+(function(){
+  var tb=document.getElementById('themeBtn');
+  function paint(){var d=document.documentElement.getAttribute('data-theme')==='dark';if(tb)tb.textContent=d?'☀️':'🌙';}
+  if(tb){tb.addEventListener('click',function(){
+    var d=document.documentElement.getAttribute('data-theme')==='dark';
+    if(d){document.documentElement.removeAttribute('data-theme');try{localStorage.removeItem('hg_theme');}catch(e){}}
+    else{document.documentElement.setAttribute('data-theme','dark');try{localStorage.setItem('hg_theme','dark');}catch(e){}}
+    paint();
+  });paint();}
+  var sb=document.getElementById('searchBtn'),ov=document.getElementById('searchOverlay'),sc=document.getElementById('searchClose');
+  if(sb&&ov){sb.addEventListener('click',function(){ov.hidden=false;var i=ov.querySelector('input');if(i){i.focus();}});}
+  if(sc&&ov){sc.addEventListener('click',function(){ov.hidden=true;});}
+  if(ov){ov.addEventListener('click',function(e){if(e.target===ov){ov.hidden=true;}});}
+})();
