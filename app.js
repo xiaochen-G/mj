@@ -46,3 +46,16 @@ var hgMeP=Promise.resolve(hgMe);
   if(sc&&ov){sc.addEventListener('click',function(){ov.hidden=true;});}
   if(ov){ov.addEventListener('click',function(e){if(e.target===ov){ov.hidden=true;}});}
 })();
+// --- pager jump box (2026-11-15) ---
+(function(){
+  var pj=document.querySelector('.pgjump');
+  if(!pj)return;
+  pj.addEventListener('submit',function(e){
+    e.preventDefault();
+    var inp=pj.querySelector('input'),n=parseInt(inp.value,10);
+    if(!n||n<1)return;
+    var max=parseInt(inp.getAttribute('max'),10)||0;
+    if(max&&n>max)n=max;
+    location.href=pj.getAttribute('data-base')+n;
+  });
+})();

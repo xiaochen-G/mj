@@ -90,3 +90,6 @@ video{width:100%;aspect-ratio:16/9;max-height:76vh;display:block;background:#000
 .hrow h3{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .hrow .hs{font-size:12px;color:var(--muted);margin-top:4px}
 .hrow .go{background:var(--accent);color:var(--accent-text);font-weight:700;border-radius:999px;padding:8px 14px;font-size:13px;white-space:nowrap}
+.pgjump{display:flex;gap:6px}
+.pgjump input{width:66px;border:1px solid var(--border);background:var(--input);color:var(--text);border-radius:8px;padding:7px 8px;font-size:13.5px;font-family:inherit;outline:none}
+.pgjump button{background:var(--accent);color:var(--accent-text);border:none;border-radius:8px;padding:7px 14px;font-size:13.5px;cursor:pointer;font-family:inherit;font-weight:600}
