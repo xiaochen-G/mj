@@ -1,0 +1,15 @@
+.anav{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+.anav a{padding:6px 14px;border:1px solid #4a3d1e;border-radius:999px;background:#1d1912;font-size:14px}
+.anav a:hover{border-color:#d9a441;color:#f5c86e}
+.acard{border:1px solid #2b2517;border-radius:12px;background:#171410;padding:16px 18px;margin:12px 0}
+.acard h2{font-size:16px;margin-bottom:10px;color:#f5c86e}
+.kv{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;font-size:14px}
+.kv dt{color:#a4936f}.kv dd{word-break:break-all}
+table.atable{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+table.atable th,table.atable td{border-bottom:1px solid #2b2517;padding:7px 8px;text-align:left;white-space:nowrap}
+table.atable th{color:#a4936f;font-weight:600}
+.awrap{overflow-x:auto}
+.abtn{display:inline-block;padding:8px 18px;border:0;border-radius:8px;background:#d9a441;color:#171207;font-weight:700;cursor:pointer;font-size:14px}
+.abtn:hover{background:#f5c86e}
+.ainput{width:100%;padding:9px 12px;border:1px solid #4a3d1e;border-radius:8px;background:#12100c;color:#f3ead8;font-size:14px}
+.aok{color:#8fd18a}.aerr{color:#e08a8a}.amut{color:#a4936f;font-size:13px}
