@@ -27,10 +27,39 @@ function hgWireFav(b){
     }
   });
 }
-// --- user accounts are closed (Dario's order, 2026-11-14): no login/register.
-// Favorites and history live only in this browser's localStorage.
+// --- user accounts (reopened 2026-11-18): session state, header user
+// box, and a one-time merge of this browser's guest favorites/history
+// into the account so they follow the user across devices.
 var hgMe={logged:false};
-var hgMeP=Promise.resolve(hgMe);
+var hgMeP=(function(){
+  return fetch('/api/me').then(function(r){return r.json();}).then(function(d){
+    hgMe=d||{logged:false};
+    var ub=document.getElementById('userBox');
+    if(ub){
+      ub.innerHTML='';
+      if(hgMe.logged){
+        var a=document.createElement('a');a.href='/user';a.textContent=hgMe.name;ub.appendChild(a);
+      }else{
+        var l=document.createElement('a');l.href='/login';l.textContent='登录';ub.appendChild(l);
+      }
+    }
+    if(hgMe.logged){
+      var key='hg_merged_'+hgMe.name,done=false;
+      try{done=!!localStorage.getItem(key);}catch(e){}
+      if(!done){
+        var favs=hgFavs(),hist=hgLoad('hg_hist');
+        if(favs.length||hist.length){
+          var mf=[],mh=[],i;
+          for(i=0;i<favs.length;i++){mf.push({id:parseInt(favs[i].id,10)});}
+          for(i=0;i<hist.length;i++){mh.push({id:parseInt(hist[i].id,10),ep:parseInt(hist[i].ep,10)||0});}
+          fetch('/api/merge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({favs:mf,hist:mh})})
+            .then(function(){try{localStorage.setItem(key,'1');}catch(e){}}).catch(function(){});
+        }else{try{localStorage.setItem(key,'1');}catch(e){}}
+      }
+    }
+    return hgMe;
+  }).catch(function(){return hgMe;});
+})();
 // --- ddys-style chrome: dark-mode toggle + search overlay (2026-11-15) ---
 (function(){
   var tb=document.getElementById('themeBtn');
